@@ -1,31 +1,26 @@
-using AutoBlink;
 using HarmonyLib;
 using Verse;
 
 namespace BlinkGene
 {
+    /** Mod initializer class */
     [StaticConstructorOnStartup]
     public class ModInit
     {
+        /** There is quite literally no reason for me to have made this, yet here we are. */
         public const string MOD_ID = "kd8lvt.blink.gene";
+        
+        /** An ENTIRE harmony instance, for the SINGLE patch I use. */
         public static readonly Harmony HARMONY;
-
+        
+        /** Mod Initializer */
         static ModInit()
         {
             HARMONY = new Harmony(MOD_ID);
-            HARMONY.Patch(new HarmonyMethod(typeof(Pawn),nameof(Pawn.Tick)).method,new HarmonyMethod(typeof(ModInit),nameof(PawnTick)));
-        }
-        public static void PawnTick(ref Pawn __instance)
-        {
-            /*
-             * We need this patch to disable auto-blinking for pawns who don't have the gene.
-             * I ALMOST did this whole project without Harmony. Oh well.
-             */
-            if (__instance.def.defName == "Human" && __instance.GetComp<CompBlinkWatcher>() is CompBlinkWatcher comp &&
-                !__instance.genes.HasActiveGene(Gene_BlinkGland.gene))
-            {
-                comp.autoBlinkMaster = false;
-            }
+            HARMONY.Patch(
+                    new HarmonyMethod(typeof(Pawn),nameof(Pawn.Tick)).method,
+                    new HarmonyMethod(typeof(Gene_BlinkGland),nameof(Gene_BlinkGland.PawnTickPrefix))
+                );
         }
     }
 }
