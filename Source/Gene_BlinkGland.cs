@@ -1,6 +1,5 @@
 using System;
 using AutoBlink;
-using RimWorld.BaseGen;
 using Verse;
 
 namespace BlinkGene
@@ -25,30 +24,18 @@ namespace BlinkGene
                 return base.Active && pawn.def.modExtensions.Any(ext => ext is BlinkableExtension);
             }
         }
-
-        /** Disables auto-blink on pawns without the required gene.<br />
-            I'll be real, this probably doesn't NEED to be called every tick. */
-        public override void Tick()
-        {
-            //Only run once every 10t
-            if (Find.TickManager.TicksGame % 10 > 0) { base.Tick(); return; }
-
-            //This should never nullref, because Gene.Tick() shouldn't ever be called on anything with a null `genes` field. 
-            //If it does, that's Ludeon's fault, not mine.
-            if (pawn.GetComp<CompBlinkWatcher>() is CompBlinkWatcher comp && comp.autoBlinkMaster != pawn.genes.HasActiveGene(gene))
-                comp.autoBlinkMaster = !comp.autoBlinkMaster;
-            
-            //Probably should let the base gene class tick... not that it probably does anything.
-            base.Tick();
-        }
         
-        /** We need this patch to disable auto-blinking for pawns who don't have the gene.<br />
+        /** We need this patch to disable auto-blinking for pawns who don't have the gene at all.<br />
          *  I <i>almost</i> did this whole project without needing Harmony. Oh well.
          */
         public static void PawnTickPrefix(ref Pawn __instance)
         {
-            if (__instance.def.defName == "Human" && __instance.GetComp<CompBlinkWatcher>() is CompBlinkWatcher comp &&
-                !__instance.genes.HasActiveGene(Gene_BlinkGland.gene))
+            //This weird if chain ensures they're not all evaluated at the same time.
+            //I'm doing this to optimize for the lowest-impact but widest-net checks first.
+            //There's certainly fewer humans than other animals (typically),
+            //Only a few of those humans will have kd8lvt_BlinkGland,
+            //and ideally none of them will have a null CompBlinkWatcher, but it's probably worth checking.
+            if (__instance.def.defName == "Human") if (!__instance.genes.HasActiveGene(gene)) if (__instance.GetComp<CompBlinkWatcher>() is CompBlinkWatcher comp)
             {
                 comp.autoBlinkMaster = false;
             }

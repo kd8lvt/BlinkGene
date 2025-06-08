@@ -4,17 +4,15 @@
         <defName>kd8lvt_BlinkGland</defName>
         <label>blink gland</label>
         <labelShortAdj>blinker</labelShortAdj>
-        <description>
-Carriers of this gene develop a tiny, yet hardly-understood, gland in the brain, just under and behind the parietal cortex.
+        <description><![CDATA[Carriers of this gene develop a tiny, yet hardly-understood, gland in the brain, just under and behind the parietal cortex.
             
-This gland is used almost instinctively by the carrier to generate temporary skipgates, allowing near-instantaneous transport to a desired location. Assuming, that is, the destination is within a fairly short range. <![CDATA[<color=0x00ffffff>(at most 120 cells)</color>]]>
+This gland is used almost instinctively by the carrier to generate temporary skipgates, allowing near-instantaneous transport to a desired location. Assuming, that is, the destination is within a fairly short range. <color=0x00ffffff>(at most 120 cells)</color>
 
 Despite this gene exclusively affecting the brain, psychic sensitivity (or a lack thereof) seems to have no effect on its function.
 This has lead some glitterworld scientists to hypothesize that the gland makes direct use of mass quantum tunneling, rather than relying on an archotech like a psylink.
 
 Many colonies across the Rim have taken to giving their couriers and craftspeople this gene for the sake of efficiency,
-though the ethics of this practice is oft-disputed on the more civilized coreworlds.
-        </description>
+though the ethics of this practice is oft-disputed on the more civilized coreworlds.]]></description>
         <displayCategory>Ability</displayCategory>
         <geneClass>BlinkGene.Gene_BlinkGland</geneClass>
         <minAgeActive>3</minAgeActive>

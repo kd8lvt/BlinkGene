@@ -17,10 +17,8 @@ namespace BlinkGene
         static ModInit()
         {
             HARMONY = new Harmony(MOD_ID);
-            HARMONY.Patch(
-                    new HarmonyMethod(typeof(Pawn),nameof(Pawn.Tick)).method,
-                    new HarmonyMethod(typeof(Gene_BlinkGland),nameof(Gene_BlinkGland.PawnTickPrefix))
-                );
+            HARMONY.Patch(typeof(Pawn).DeclaredMethod("Tick"),
+                  typeof(Gene_BlinkGland).DeclaredMethod("PawnTickPrefix"));
         }
     }
 }
