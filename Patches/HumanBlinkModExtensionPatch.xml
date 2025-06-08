@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Patch>
+    <Operation Class="PatchOperationAddModExtension">
+        <xpath>Defs/ThingDef[defName="Human"]</xpath>
+        <value>
+            <!--
+                Kd!? Why do you make every human be able to blink????
+                That's the neat thing. I don't :)
+                At least, they can't ACTUALLY blink without the gene.
+                ...
+                If I'm any good at C#, that is.
+                ...
+                Which is arguable.
+                
+                Like it WORKS, but the stupid gizmo still shows up on their bar -
+                which is both annoying and not fixable on my end, as far as I know.
+                I just disable blinking every tick to prevent it lmao
+            -->
+
+            <li Class="AutoBlink.BlinkableExtension">
+                <blinkIntervalTicks>60</blinkIntervalTicks>
+                <delayAfterEligibleTicks>4</delayAfterEligibleTicks>
+                <cellsBeforeTarget>3</cellsBeforeTarget>
+                <maxDistanceToBlink>120</maxDistanceToBlink>
+                <minDistanceToBlink>10</minDistanceToBlink>
+                <postBlinkStanceTicks>0</postBlinkStanceTicks>
+                <excludedJobDefs>
+                    <li>GotoWander</li>
+                    <li>Carried</li>
+                </excludedJobDefs>
+
+                <preBlinkSoundDefs>
+                    <li>AutoBlink_Skip_Small</li>
+                </preBlinkSoundDefs>
+                <postBlinkSoundDefs>
+                    <li>AutoBlink_Skip_Exit_Small</li>
+                </postBlinkSoundDefs>
+
+                <preBlinkEffecterDefs>
+                    <li>Skip_Entry</li>
+                </preBlinkEffecterDefs>
+
+                <postBlinkEffecterDefs>
+                    <li>Skip_ExitNoDelay</li>
+                </postBlinkEffecterDefs>
+
+                <preBlinkMoteDefs/>
+                <postBlinkMoteDefs/>
+            </li>
+        </value>
+    </Operation>
+</Patch> 

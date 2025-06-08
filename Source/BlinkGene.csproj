@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <ImplicitUsings>disable</ImplicitUsings>
+        <Nullable>disable</Nullable>
+        <RunPostBuildEvent>OnOutputUpdated</RunPostBuildEvent>
+        <TargetFramework>net48</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <Reference Include="AutoBlink">
+        <HintPath>..\..\..\..\..\workshop\content\294100\3493889625\Assemblies\AutoBlink.dll</HintPath>
+        <Private>False</Private>
+      </Reference>
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Krafs.Rimworld.Ref" Version="1.5.4409" />
+      <PackageReference Include="Lib.Harmony" Version="2.3.6" />
+    </ItemGroup>
+
+    <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+      <Exec Command="cp /mnt/ssd/SteamLibrary/steamapps/common/RimWorld/Mods/BlinkGene/Source/bin/Debug/net48/*.dll /mnt/ssd/SteamLibrary/steamapps/common/RimWorld/Mods/BlinkGene/Assemblies/" />
+    </Target>
+
+</Project>
